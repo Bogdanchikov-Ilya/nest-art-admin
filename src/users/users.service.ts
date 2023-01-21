@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from "typeorm";
 import { User } from './entities/user.entity';
+import { LoginUserDto} from "./dto/login-user.dto";
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UsersService {
@@ -20,8 +22,12 @@ export class UsersService {
     return this.usersRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findById(id: number) {
+    return this.usersRepository.findBy({id})
+  }
+
+  findByContent(params: { password: string; email: string }) {
+    return this.usersRepository.findOneBy(params)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

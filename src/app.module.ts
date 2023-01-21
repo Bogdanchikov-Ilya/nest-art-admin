@@ -9,8 +9,10 @@ import { Product } from "./products/entities/product.entity";
 import { ProductsModule } from "./products/products.module";
 import { FileService } from './file/file.service';
 import { FileModule } from './file/file.module';
+import { UsersService } from "./users/users.service";
 // ServeStaticModule - модуль чтобы сервер могу отдавать статику (картинки, файлы)
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 @Module({
   imports: [
@@ -35,7 +37,8 @@ import * as path from 'path';
     }),
     UsersModule,
     ProductsModule,
-    FileModule
+    FileModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService, FileService]
